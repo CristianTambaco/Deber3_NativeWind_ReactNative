@@ -1,6 +1,6 @@
 // app/preview.tsx
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { useCVContext } from "../context/CVContext";
 import { CVPreview } from "@/components/CVPreview";
 
@@ -8,15 +8,9 @@ export default function PreviewScreen() {
   const { cvData } = useCVContext();
 
   return (
-    <View style={styles.container}>
+    <View className="flex-1 bg-white">
       <CVPreview cvData={cvData} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
