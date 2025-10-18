@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   Alert,
   TouchableOpacity,
@@ -63,9 +62,9 @@ export default function ExperienceScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.sectionTitle}>Agregar Nueva Experiencia</Text>
+    <ScrollView className="flex-1 bg-gray-100">
+      <View className="p-5">
+        <Text className="text-xl font-bold text-slate-800 mb-4">Agregar Nueva Experiencia</Text>
 
         {/* Empresa */}
         <Controller
@@ -214,21 +213,19 @@ export default function ExperienceScreen() {
         {/* Lista de experiencias agregadas */}
         {cvData.experiences.length > 0 && (
           <>
-            <Text style={styles.listTitle}>Experiencias Agregadas</Text>
+            <Text className="text-lg font-semibold text-slate-800 mt-6 mb-3">Experiencias Agregadas</Text>
             {cvData.experiences.map((exp) => (
-              <View key={exp.id} style={styles.card}>
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>{exp.position}</Text>
-                  <Text style={styles.cardSubtitle}>{exp.company}</Text>
-                  <Text style={styles.cardDate}>
-                    {exp.startDate} - {exp.endDate || "Actual"}
-                  </Text>
+              <View key={exp.id} className="bg-white rounded-lg p-4 mb-3 flex-row shadow shadow-black/10">
+                <View className="flex-1">
+                  <Text className="text-base font-semibold text-slate-800 mb-1">{exp.position}</Text>
+                  <Text className="text-sm text-gray-600 mb-1">{exp.company}</Text>
+                  <Text className="text-xs text-gray-500">{exp.startDate} - {exp.endDate || "Actual"}</Text>
                 </View>
                 <TouchableOpacity
-                  style={styles.deleteButton}
+                  className="w-8 h-8 rounded-full bg-red-500 justify-center items-center"
                   onPress={() => handleDelete(exp.id)}
                 >
-                  <Text style={styles.deleteButtonText}>✕</Text>
+                  <Text className="text-white text-lg font-bold">✕</Text>
                 </TouchableOpacity>
               </View>
             ))}
@@ -239,76 +236,10 @@ export default function ExperienceScreen() {
         <NavigationButton
           title="Volver"
           onPress={() => router.back()}
-          variant="secondary"
-          style={{ marginTop: 16 }}
+          variant="secondary"          
         />
       </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    padding: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 16,
-  },
-  listTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#2c3e50",
-    marginTop: 24,
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    flexDirection: "row",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  cardContent: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#2c3e50",
-    marginBottom: 4,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: "#7f8c8d",
-    marginBottom: 4,
-  },
-  cardDate: {
-    fontSize: 12,
-    color: "#95a5a6",
-  },
-  deleteButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: "#e74c3c",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  deleteButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});
