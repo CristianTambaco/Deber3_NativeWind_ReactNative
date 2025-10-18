@@ -4,7 +4,6 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   Alert,
   TouchableOpacity,
@@ -76,9 +75,9 @@ export default function EducationScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.sectionTitle}>Agregar Nueva Educación</Text>
+    <ScrollView className="flex-1 bg-gray-100">
+      <View className="p-5">
+        <Text className="text-xl font-bold text-slate-800 mb-4">Agregar Nueva Educación</Text>
 
         {/* Campo de Institución con validación */}
         <Controller
@@ -102,7 +101,9 @@ export default function EducationScreen() {
                 onChangeText={onChange}
               />
               {errors.institution && (
-                <Text style={styles.errorText}>{errors.institution.message}</Text>
+                <Text className="text-red-600 text-xs mt-1">
+                  {errors.institution.message}
+                </Text>
               )}
             </>
           )}
@@ -130,7 +131,9 @@ export default function EducationScreen() {
                 onChangeText={onChange}
               />
               {errors.degree && (
-                <Text style={styles.errorText}>{errors.degree.message}</Text>
+                <Text className="text-red-600 text-xs mt-1">
+                  {errors.degree.message}
+                </Text>
               )}
             </>
           )}
@@ -189,33 +192,39 @@ export default function EducationScreen() {
                 keyboardType="numeric"
               />
               {errors.graduationYear && (
-                <Text style={styles.errorText}>{errors.graduationYear.message}</Text>
+                <Text className="text-red-600 text-xs mt-1">
+                  {errors.graduationYear.message}
+                </Text>
               )}
             </>
           )}
         />
 
+        {/* Botón Agregar */}
         <NavigationButton
           title="Agregar Educación"
-          onPress={handleSubmit(handleAdd)} // Pasar la función handleAdd con validación
+          onPress={handleSubmit(handleAdd)}
         />
 
+        {/* Lista de Educación Agregada */}
         {cvData.education.length > 0 && (
           <>
-            <Text style={styles.listTitle}>Educación Agregada</Text>
+            <Text className="text-lg font-semibold text-slate-800 mt-6 mb-3">
+              Educación Agregada
+            </Text>
             {cvData.education.map((edu) => (
-              <View key={edu.id} style={styles.card}>
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>{edu.degree}</Text>
-                  <Text style={styles.cardSubtitle}>{edu.field}</Text>
-                  <Text style={styles.cardInstitution}>{edu.institution}</Text>
-                  <Text style={styles.cardDate}>{edu.graduationYear}</Text>
+              <View key={edu.id} className="bg-white rounded-lg p-4 mb-3 flex-row shadow shadow-black/10">
+                <View className="flex-1">
+                  <Text className="text-base font-semibold text-slate-800 mb-1">{edu.degree}</Text>
+                  <Text className="text-sm text-gray-600 mb-1">{edu.field}</Text>
+                  <Text className="text-sm text-gray-500 mb-1">{edu.institution}</Text>
+                  <Text className="text-xs text-gray-400">{edu.graduationYear}</Text>
                 </View>
                 <TouchableOpacity
-                  style={styles.deleteButton}
+                  className="w-8 h-8 rounded-full bg-red-500 justify-center items-center"
                   onPress={() => handleDelete(edu.id)}
                 >
-                  <Text style={styles.deleteButtonText}>✕</Text>
+                  <Text className="text-white text-lg font-bold">✕</Text>
                 </TouchableOpacity>
               </View>
             ))}
@@ -225,86 +234,10 @@ export default function EducationScreen() {
         <NavigationButton
           title="Volver"
           onPress={() => router.back()}
-          variant="secondary"
-          style={{ marginTop: 16 }}
+          variant="secondary"          
         />
       </View>
     </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    padding: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 16,
-  },
-  listTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#2c3e50",
-    marginTop: 24,
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    flexDirection: "row",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  cardContent: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#2c3e50",
-    marginBottom: 4,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: "#7f8c8d",
-    marginBottom: 4,
-  },
-  cardInstitution: {
-    fontSize: 14,
-    color: "#95a5a6",
-    marginBottom: 2,
-  },
-  cardDate: {
-    fontSize: 12,
-    color: "#95a5a6",
-  },
-  deleteButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: "#e74c3c",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  deleteButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  errorText: {
-    color: "red",
-    fontSize: 12,
-    marginTop: 4,
-  },
-});
