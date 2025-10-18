@@ -4,7 +4,6 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   Alert,
   TouchableOpacity,
@@ -16,7 +15,6 @@ import { useCVContext } from "../context/CVContext";
 import { Skill, SkillLevel } from "../types/cv.types";
 
 import { useForm, Controller } from "react-hook-form";
-
 
 
 const skillLevels: SkillLevel[] = ['Básico', 'Intermedio', 'Avanzado', 'Experto'];
@@ -73,11 +71,14 @@ export default function SkillsScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.sectionTitle}>Agregar Nueva Habilidad</Text>
+    <ScrollView className="flex-1 bg-gray-100">
+      <View className="p-5">
+        <Text className="text-xl font-bold text-gray-800 mb-4">
+          Agregar Nueva Habilidad
+        </Text>
 
         {/* Conecta los campos del formulario con Controller */}
+        {/* Campo de Nombre de Habilidad */}
         <Controller
           control={control}
           name="name"
@@ -101,61 +102,71 @@ export default function SkillsScreen() {
           )}
         />
         {errors.name && (
-          <Text style={{ color: 'red', marginBottom: 8 }}>
-            {errors.name.message}
-          </Text>
+          <Text className="text-red-500 mb-2">{errors.name.message}</Text>
         )}
 
-        <Text style={styles.label}>Nivel</Text>
-        <View style={styles.selectContainer}>
-          {skillLevels.map((level) => (
-            <TouchableOpacity
-              key={level}
-              style={[
-                styles.levelButton,
-                selectedLevel === level && styles.selectedLevelButton,
-              ]}
-              onPress={() => setValue("level", level)}
-            >
-              <Text
-                style={[
-                  styles.levelButtonText,
-                  selectedLevel === level && styles.selectedLevelButtonText,
-                ]}
+        {/* Botones de Nivel */}
+        <Text className="text-sm font-medium text-gray-800 mb-2">Nivel</Text>
+        <View className="flex-row flex-wrap mb-4">
+          {skillLevels.map((level) => {
+            const isSelected = selectedLevel === level;
+            return (
+              <TouchableOpacity
+                key={level}
+                className={`px-3 py-1.5 rounded-full mr-2 mb-2 ${
+                  isSelected ? "bg-blue-500" : "bg-gray-200"
+                }`}
+                onPress={() => setValue("level", level)}
               >
-                {level}
-              </Text>
-            </TouchableOpacity>
-          ))}
+                <Text
+                  className={`${
+                    isSelected
+                      ? "text-white font-bold"
+                      : "text-gray-800"
+                  }`}
+                >
+                  {level}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
         <NavigationButton title="Agregar Habilidad" onPress={handleSubmit(onSubmit)} />
 
+        {/* Lista de Habilidades */}
         {cvData.skills.length > 0 && (
           <>
-            <Text style={styles.listTitle}>Habilidades Agregadas</Text>
+            <Text className="text-lg font-semibold text-gray-800 mt-6 mb-3">
+              Habilidades Agregadas
+            </Text>
             {cvData.skills.map((skill) => (
-              <View key={skill.id} style={styles.card}>
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>{skill.name}</Text>
-                  <Text style={styles.cardSubtitle}>{skill.level}</Text>
+              <View
+                key={skill.id}
+                className="bg-white rounded-lg p-4 mb-3 flex-row shadow-sm shadow-black/10 elevation-2"
+              >
+                <View className="flex-1">
+                  <Text className="text-base font-semibold text-gray-800 mb-1">
+                    {skill.name}
+                  </Text>
+                  <Text className="text-sm text-gray-500">{skill.level}</Text>
                 </View>
                 <TouchableOpacity
-                  style={styles.deleteButton}
+                  className="w-8 h-8 bg-red-500 rounded-full justify-center items-center"
                   onPress={() => handleDelete(skill.id)}
                 >
-                  <Text style={styles.deleteButtonText}>✕</Text>
+                  <Text className="text-white text-lg font-bold">✕</Text>
                 </TouchableOpacity>
               </View>
             ))}
           </>
         )}
 
+        {/* Botón Volver */}
         <NavigationButton
           title="Volver"
           onPress={() => router.back()}
-          variant="secondary"
-          style={{ marginTop: 16 }}
+          variant="secondary"          
         />
       </View>
     </ScrollView>
@@ -163,92 +174,3 @@ export default function SkillsScreen() {
 }
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    padding: 20,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 14,
-    color: "#2c3e50",
-    marginBottom: 8,
-    fontWeight: "500",
-  },
-  selectContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 16,
-  },
-  levelButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: "#ecf0f1",
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  selectedLevelButton: {
-    backgroundColor: "#3498db",
-  },
-  levelButtonText: {
-    color: "#2c3e50",
-  },
-  selectedLevelButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  listTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    color: "#2c3e50",
-    marginTop: 24,
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    flexDirection: "row",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  cardContent: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#2c3e50",
-    marginBottom: 4,
-  },
-  cardSubtitle: {
-    fontSize: 14,
-    color: "#7f8c8d",
-  },
-  deleteButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: "#e74c3c",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  deleteButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});
