@@ -157,6 +157,12 @@ export default function HomeScreen() {
       {/* Espacio adicional al final para evitar que el último elemento quede oculto */}
       <View style={{ height: 20 }} />
 
+      <View className="flex-1 items-center justify-center bg-white">
+      <Text className="text-xl font-bold text-blue-500">
+        Welcome to Nativewind!
+      </Text>
+    </View>
+
       
     </ScrollView>
   );
