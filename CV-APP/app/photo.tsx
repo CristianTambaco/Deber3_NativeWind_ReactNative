@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import {
   Alert,
   Image,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -114,34 +113,43 @@ export default function PhotoScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Foto de Perfil</Text>
+    <View className="flex-1 p-5 bg-gray-100">
+      <Text className="text-2xl font-bold text-gray-800 text-center mb-5">Foto de Perfil</Text>
 
-      <View style={styles.imageContainer}>
+      <View className="items-center mb-8">
         {selectedImage ? (
-          <Image source={{ uri: selectedImage }} style={styles.image} />
+          <Image
+            source={{ uri: selectedImage }}
+            className="w-52 h-52 rounded-full border-4 border-blue-500"
+          />
         ) : (
-          <View style={styles.placeholder}>
-            <Text style={styles.placeholderText}>Sin foto</Text>
+          <View className="w-52 h-52 rounded-full bg-gray-300 justify-center items-center border-4 border-gray-400">
+            <Text className="text-gray-500 text-base">Sin foto</Text>
           </View>
         )}
       </View>
 
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.actionButton} onPress={takePhoto}>
-          <Text style={styles.actionButtonText}>📷 Tomar Foto</Text>
+      <View className="mb-5">
+        <TouchableOpacity
+          className="bg-blue-500 p-4 rounded-lg mb-3 items-center"
+          onPress={takePhoto}
+        >
+          <Text className="text-white text-base font-semibold">📷 Tomar Foto</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.actionButton} onPress={pickImage}>
-          <Text style={styles.actionButtonText}>🖼️ Seleccionar de Galería</Text>
+        <TouchableOpacity
+          className="bg-blue-500 p-4 rounded-lg mb-3 items-center"
+          onPress={pickImage}
+        >
+          <Text className="text-white text-base font-semibold">🖼️ Seleccionar de Galería</Text>
         </TouchableOpacity>
 
         {selectedImage && (
           <TouchableOpacity
-            style={[styles.actionButton, styles.removeButton]}
+            className="bg-red-500 p-4 rounded-lg mb-3 items-center"
             onPress={handleRemove}
           >
-            <Text style={styles.actionButtonText}>🗑️ Eliminar Foto</Text>
+            <Text className="text-white text-base font-semibold">🗑️ Eliminar Foto</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -156,62 +164,4 @@ export default function PhotoScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: "#f5f5f5",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#2c3e50",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  imageContainer: {
-    alignItems: "center",
-    marginBottom: 30,
-  },
-  image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    borderWidth: 3,
-    borderColor: "#3498db",
-  },
-  placeholder: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    backgroundColor: "#e0e0e0",
-    justifyContent: "center",
-    alignItems: "center",
-    borderWidth: 3,
-    borderColor: "#bdc3c7",
-  },
-  placeholderText: {
-    color: "#7f8c8d",
-    fontSize: 16,
-  },
-  buttonContainer: {
-    marginBottom: 20,
-  },
-  actionButton: {
-    backgroundColor: "#3498db",
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 12,
-    alignItems: "center",
-  },
-  removeButton: {
-    backgroundColor: "#e74c3c",
-  },
-  actionButtonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-});
 
