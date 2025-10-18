@@ -13,7 +13,7 @@ export const generateCVHtml = (cvData: any, base64Image?: string) => {
         <style>
           body { font-family: Arial, sans-serif; padding: 20px; }
           h1 { color: #2c3e50; }
-          h2 { color: #3498db; border-bottom: 1px solid #157bc0ff; padding-bottom: 4px; }
+          h2 { color: #1D4ED8; border-bottom: 1px solid #157bc0ff; padding-bottom: 4px; }
           p { margin: 4px 0; }
 
           /* Contenedor para la imagen y los datos personales */
