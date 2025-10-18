@@ -42,6 +42,11 @@
         }
       ]
     ],
+    
+    "web": {
+      "bundler": "metro"
+    },
+
     "extra": {
       "eas": {
         
