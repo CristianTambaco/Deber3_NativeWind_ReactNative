@@ -1,7 +1,7 @@
 // app/personal-info.tsx
 
 import React, { useEffect } from "react";
-import { View, StyleSheet, ScrollView, Alert } from "react-native";
+import { View, ScrollView, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { InputField } from "../components/InputField";
 import { NavigationButton } from "../components/NavigationButton";
@@ -42,8 +42,8 @@ export default function PersonalInfoScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.content}>
+    <ScrollView className="flex-1 bg-gray-100">
+      <View className="p-5">
         {/* Nombre Completo */}
         <Controller
           name="fullName"
@@ -192,12 +192,4 @@ export default function PersonalInfoScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  content: {
-    padding: 20,
-  },
-});
+
