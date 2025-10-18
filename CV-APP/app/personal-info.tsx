@@ -132,7 +132,7 @@ export default function PersonalInfoScreen() {
           rules={{
             
             pattern: {
-              value: /^[A-Za-zÀ-ÿ\s]+$/,  // Solo letras y espacios
+              value: /^[A-Za-zÀ-ÿ\s,]+$/,  // Solo letras y espacios
               message: "La ubicación solo puede contener letras y espacios",
             },
           }}

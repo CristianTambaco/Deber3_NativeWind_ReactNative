@@ -17,7 +17,7 @@ export const NavigationButton = ({
     ? "bg-blue-500"
     : variant === "secondary"
     ? "bg-transparent border-2 border-blue-500"
-    : "bg-red-500"; // Para "danger"
+    : "bg-red-500";
 
   const textClass = variant === "secondary" ? "text-blue-500" : "text-white";
 
